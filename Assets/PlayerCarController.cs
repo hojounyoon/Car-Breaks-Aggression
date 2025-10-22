@@ -7,6 +7,12 @@ public class PlayerCarController : MonoBehaviour
     public float laneChangeSpeed = 15f;
     public float moveSpeed = 8f;
 
+    [Header("Screen Boundaries")]
+    public float leftBound = -2f;
+    public float rightBound = 2f;
+    public float bottomBound = -4f;
+    public float topBound = 4f;
+
     [Header("Lane System")]
     public float[] lanePositions = { -2f, 0f, 2f };
 
@@ -19,7 +25,17 @@ public class PlayerCarController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        CalculateLanePositions();
         transform.position = new Vector3(lanePositions[currentLane], transform.position.y, 0);
+    }
+
+    void CalculateLanePositions()
+    {
+        lanePositions = new float[3];
+        lanePositions[0] = leftBound;
+        lanePositions[1] = 0f;
+        lanePositions[2] = rightBound;
     }
 
     // Update is called once per frame
@@ -27,11 +43,7 @@ public class PlayerCarController : MonoBehaviour
     {
         HandleInput();
         HandleLaneMovement();
-    }
-
-    void FixedUpdate()
-    {
-        rb.linearVelocity = new Vector2(0, moveSpeed);
+        ConstrainToScreen();
     }
 
     void HandleInput()
@@ -71,8 +83,17 @@ public class PlayerCarController : MonoBehaviour
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 isChangingLane = false;
+                transform.position = targetPosition;
             }
         }
+    }
+
+    void ConstrainToScreen()
+    {
+        Vector3 pos = transform.position;
+
+        pos.x = Mathf.Clamp(pos.x, leftBound, rightBound);
+        pos.y = Mathf.Clamp(pos.y, bottomBound, topBound);
     }
 
     public int GetCurrentLane()
