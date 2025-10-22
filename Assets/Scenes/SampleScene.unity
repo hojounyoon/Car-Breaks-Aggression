@@ -153,14 +153,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCarController
   laneChangeSpeed: 15
   moveSpeed: 8
-  leftBound: -2
-  rightBound: 2
+  leftBound: -5
+  rightBound: 5
   bottomBound: -4
   topBound: 4
   lanePositions:
-  - -2
+  - -6
   - 0
-  - 2
+  - 6
 --- !u!61 &124491473
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -458,12 +458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2975908a96854ab28ebdb36333852c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Camera
-  playerTarget: {fileID: 0}
-  smoothSpeed: 0.125
-  offset: {x: 0, y: 2, z: -10}
-  useBounds: 0
-  minY: -5
-  maxY: 100
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -51,7 +51,6 @@
     <Compile Include="Assets/PlayerCarController.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
     <Compile Include="Assets/MoveBackground.cs" />
-    <Compile Include="Assets/CameraFollow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

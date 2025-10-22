@@ -8,13 +8,13 @@ public class PlayerCarController : MonoBehaviour
     public float moveSpeed = 8f;
 
     [Header("Screen Boundaries")]
-    public float leftBound = -2f;
-    public float rightBound = 2f;
+    public float leftBound = -5f;
+    public float rightBound = 5f;
     public float bottomBound = -4f;
     public float topBound = 4f;
 
     [Header("Lane System")]
-    public float[] lanePositions = { -2f, 0f, 2f };
+    public float[] lanePositions = { -6f, 0f, 6f };
 
     private int currentLane = 1;
     private bool isChangingLane = false;
