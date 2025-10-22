@@ -153,6 +153,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCarController
   laneChangeSpeed: 15
   moveSpeed: 8
+  leftBound: -2
+  rightBound: 2
+  bottomBound: -4
+  topBound: 4
   lanePositions:
   - -2
   - 0
@@ -296,13 +300,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 124491471}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.39339, y: 0, z: 4.96}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.16119136, y: -0, z: -0, w: 0.98692316}
+  m_LocalPosition: {x: -0.02, y: 0, z: 4}
+  m_LocalScale: {x: 15, y: 18, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -18.552, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +396,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0046645505, y: 0.98319083, z: -0.18074936, w: 0.025372768}
-  m_LocalPosition: {x: -0.87545305, y: 3.5565891, z: 14.293717}
+  m_LocalPosition: {x: -0.5020631, y: 3.5565891, z: 13.333717}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -895,7 +899,7 @@ Transform:
   m_GameObject: {fileID: 871921197}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0046645505, y: 0.98319083, z: -0.18074936, w: 0.025372768}
-  m_LocalPosition: {x: -0.87545305, y: 3.5565891, z: 14.293717}
+  m_LocalPosition: {x: -0.5020631, y: 3.5565891, z: 13.333717}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

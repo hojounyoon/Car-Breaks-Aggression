@@ -27,7 +27,7 @@ public class PlayerCarController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         CalculateLanePositions();
-        transform.position = new Vector3(lanePositions[currentLane], transform.position.y, 0);
+        transform.position = new Vector3(lanePositions[currentLane], transform.position.y, 4);
     }
 
     void CalculateLanePositions()
@@ -52,20 +52,20 @@ public class PlayerCarController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (currentLane > 0)
+            if (currentLane < lanePositions.Length - 1)
             {
-                currentLane--;
+                currentLane++; 
                 StartLaneChange();
             }
         }
 
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (currentLane < lanePositions.Length - 1)
+            if (currentLane > 0)
             {
-                currentLane++;
+                currentLane--;
                 StartLaneChange();
-            }
+                }
         }
     }
 
