@@ -1,10 +1,18 @@
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
-    public GameObject enemyPrefab; 
-    public float spawnInterval = 1f; 
-    public Vector2 spawnAreaSize = new Vector2(10f, 10f); 
+    public GameObject enemyPrefab;
+    public bool fearMode;
+    public float spawnInterval = 4f; 
+    private Vector2 spawnAreaSize = new Vector2(24f, 24f);
+    // Weighted spawn location possibilities
+    private float[] enemyPositions = { -4.5f, -4.5f, -2.5f, -.5f, -.5f, 3.9f, 4f, 4f };
+    private GameObject enemy;
+    private float spawnCount = 0f;
+    private float height = 0f;
 
     private float nextSpawnTime;
 
@@ -18,6 +26,7 @@ public class ObstacleManager : MonoBehaviour
         if (Time.time >= nextSpawnTime)
         {
             SpawnEnemy();
+            spawnCount++;
             nextSpawnTime = Time.time + spawnInterval;
         }
     }
@@ -25,18 +34,21 @@ public class ObstacleManager : MonoBehaviour
     void SpawnEnemy()
     {
         // Calculate a random position within the defined spawn area
-        float randomX = Random.Range(-spawnAreaSize.x / 2f, spawnAreaSize.x / 2f);
-        float randomZ = Random.Range(-spawnAreaSize.y / 2f, spawnAreaSize.y / 2f);
+        int randomX = Random.Range(0, enemyPositions.Count());
 
-        Vector3 spawnPosition = transform.position + new Vector3(randomX, 0f, randomZ); 
+        if (spawnCount > 7 && fearMode == false) {height = 20;}
 
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        Vector3 spawnPosition = transform.position + new Vector3(enemyPositions[randomX], height, 0f); 
+
+        enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        enemy.GetComponent<Obstacles>().isClone = true;
+        enemy.GetComponent<Obstacles>().SetVelocity(spawnCount, fearMode);
     }
 
     // Optional: Visualize the spawn area in the editor
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3(spawnAreaSize.x, 0.1f, spawnAreaSize.y));
+        Gizmos.DrawWireCube(transform.position, new Vector3(spawnAreaSize.x, height, spawnAreaSize.y));
     }
 }
