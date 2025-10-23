@@ -2,23 +2,41 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
+    public GameObject enemyPrefab; 
+    public float spawnInterval = 1f; 
+    public Vector2 spawnAreaSize = new Vector2(10f, 10f); 
 
-    public GameObject obstacle;
-    public float spawnRadius = 10f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private float nextSpawnTime;
+
     void Start()
     {
-        InvokeRepearing("SpawnEnemy", 1f, 1f);   
+        nextSpawnTime = Time.time + spawnInterval;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Vector2 randomPos = randomPos.insideUnitCircle * spawnRadius;
+        if (Time.time >= nextSpawnTime)
+        {
+            SpawnEnemy();
+            nextSpawnTime = Time.time + spawnInterval;
+        }
+    }
 
-        randomPos += transform.position;
-        randomPos.y = transform.position.y;
+    void SpawnEnemy()
+    {
+        // Calculate a random position within the defined spawn area
+        float randomX = Random.Range(-spawnAreaSize.x / 2f, spawnAreaSize.x / 2f);
+        float randomZ = Random.Range(-spawnAreaSize.y / 2f, spawnAreaSize.y / 2f);
 
-        Instantitate(obstacle, randomPos, Quarternion.identity);
+        Vector3 spawnPosition = transform.position + new Vector3(randomX, 0f, randomZ); 
+
+        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+    }
+
+    // Optional: Visualize the spawn area in the editor
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(spawnAreaSize.x, 0.1f, spawnAreaSize.y));
     }
 }
