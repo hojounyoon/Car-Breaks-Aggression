@@ -1,8 +1,11 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class MoveBackground : MonoBehaviour
 {
     public GameObject obstacleManager;
+    public TextMeshProUGUI scoreBox;
     public float scrollSpeed = -0.5f;
     private bool fear;
     private bool rage = false;
@@ -32,6 +35,7 @@ public class MoveBackground : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, 5f, transform.position.z);
                 Debug.Log("RAGE MODE UNLOCKED");
+                scoreBox.text = "RAGE MODE UNLOCKED";
                 rage = true;
             }
         }

@@ -1,10 +1,13 @@
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ObstacleManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public TextMeshProUGUI scoreBox;
     public bool fearMode;
     public float spawnInterval = 4f; 
     private Vector2 spawnAreaSize = new Vector2(24f, 24f);
@@ -13,11 +16,16 @@ public class ObstacleManager : MonoBehaviour
     private GameObject enemy;
     private float spawnCount = 0f;
     private float height = 0f;
+    public int score = 0;
 
     private float nextSpawnTime;
 
     void Start()
     {
+        if (fearMode == true)
+        {
+            spawnInterval = spawnInterval / 2;
+        }
         nextSpawnTime = Time.time + spawnInterval;
     }
 
@@ -27,10 +35,20 @@ public class ObstacleManager : MonoBehaviour
         {
             SpawnEnemy();
             spawnCount++;
+            if (fearMode == true)
+            {
+                score = (int)(spawnCount);
+                scoreBox.text = "Score: " + score;
+            }
             nextSpawnTime = Time.time + spawnInterval;
         }
     }
 
+    public void ScorePrint()
+    {
+        score++;
+        scoreBox.text = "Enemies Eviscerated: " + score;
+    }
     void SpawnEnemy()
     {
         // Calculate a random position within the defined spawn area
@@ -44,6 +62,7 @@ public class ObstacleManager : MonoBehaviour
         enemy.GetComponent<Obstacles>().isClone = true;
         enemy.GetComponent<Obstacles>().SetVelocity(spawnCount, fearMode);
     }
+
 
     // Optional: Visualize the spawn area in the editor
     void OnDrawGizmosSelected()

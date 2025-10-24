@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,9 +11,12 @@ public class Obstacles : MonoBehaviour
     private bool fear = false;
     //private float velocityScale = 1f;
     public GameObject player;
+    public GameObject obstacleManager;
     public float despawnDelay = 5f;
     private float destroyTime;
     private Rigidbody2D rb;
+    public TextMeshProUGUI scoreBox;
+    int score = 0;
 
     void Start()
     {
@@ -28,6 +32,7 @@ public class Obstacles : MonoBehaviour
         {
             Destroy(this.gameObject);
             Destroy(this);
+
         }
     }
 
@@ -53,13 +58,16 @@ public class Obstacles : MonoBehaviour
         {
             if (fear == true || obstacleVelocity > 1f)
             {
-                Debug.Log("Collided - Game Over");
+                score = obstacleManager.GetComponent<ObstacleManager>().score;
+                Debug.Log("Collision - Game Over - Score: " + score);
+                scoreBox.text = "Collision - Game Over - Score: " + score;
                 Destroy(this.gameObject);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             else
             {
                 Destroy(this.gameObject);
+                obstacleManager.GetComponent<ObstacleManager>().ScorePrint();
                 Debug.Log("Enemy Eviscerated (+1 Aggression Point)");
             }
         }
